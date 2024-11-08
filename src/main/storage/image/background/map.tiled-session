@@ -3,41 +3,102 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "back_ground.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "C:/Users/Ocean/Desktop/software/mario_game/map.tmx": {
+            "scale": 1.21,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 430.1652892561984,
+                "y": 279.7520661157025
+            }
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/map.tmx#map": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/map.tmx#triggers": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/map.tmx#triggers2x": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/underground1.tmx": {
+            "scale": 1.4453571428571428,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 319.990116135409,
+                "y": 279.86162589572524
+            }
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/underground1.tmx#map": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/underground1.tmx#triggers": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Ocean/Desktop/software/mario_game/underground1.tmx#triggers2x": {
+            "scaleInDock": 1
+        },
         "back_ground.tmx": {
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 602,
-                "y": 77.99999999999994
+                "y": 207.33333333333326
             }
+        },
+        "back_ground2.tmx": {
+            "scale": 0.8708333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 600,
+                "y": 279.6172248803829
+            }
+        },
+        "back_ground_game.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 1
+        },
+        "back_ground_game1.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 1
+        },
+        "back_ground_game_2.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         },
         "map.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/Ocean/Desktop/software/app/storage/image/back_ground",
+    "last.imagePath": "C:/Users/Ocean/Desktop/software/app/src/main/storage/image/background",
+    "map.height": 40,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 14,
     "map.tileWidth": 20,
     "map.width": 60,
     "openFiles": [
-        "back_ground.tmx",
-        "map.tsx"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
-        "map.tsx",
-        "back_ground.tmx"
+        "back_ground.tmx",
+        "back_ground_game_2.tsx",
+        "back_ground_game.tsx",
+        "back_ground_game1.tsx",
+        "C:/Users/Ocean/Desktop/software/mario_game/map.tmx",
+        "C:/Users/Ocean/Desktop/software/mario_game/underground1.tmx",
+        "back_ground2.tmx",
+        "map.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 14,
         "width": 20
-    }
+    },
+    "tileset.type": 0
 }
