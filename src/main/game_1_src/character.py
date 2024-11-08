@@ -3,29 +3,27 @@ from setting import *
 
 class Character:
    def __init__(self):
+      
       self.health = 100
       self.damage = 10
-      self.speed = 5
-      self.image = pygame.Surface((50, 50))
-
-
-   def draw(self):
-      pygame.draw.rect(self.image, (255, 0, 0), (self.image.x, self.image.y, 50, 50))
-     
+      self.speed = 0.1
       
+
+
+   def input(self):
+           pass
    
    def move(self):
-      key = pygame.key.get_pressed()
-      if key[pygame.K_LEFT]:
-         self.image.x -= self.speed
-      if key[pygame.K_RIGHT]:
-         self.image.x += self.speed
+      pass
      
 
 
    def attack(self):
       pass
-   
+
+
    def update(self):
+      self.input()
       self.move()
-      self.draw()
+      self.attack()
+      
