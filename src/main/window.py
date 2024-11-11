@@ -2,6 +2,7 @@ from setting import *
 from common import common
 from game_1_src.game_1 import Game_1
 
+
 class Window (common):
    def __init__(self):
          pygame.init()
@@ -27,7 +28,7 @@ class Window (common):
             if event.type == pygame.MOUSEBUTTONDOWN:
                if self.button_start.collidepoint(event.pos):
                   print("Start Game")
-                  game_1 = Game_1()
+                  game_1 = Game_1(self.window)
                   game_1.run()
 
 

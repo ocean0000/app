@@ -1,8 +1,10 @@
-import pygame, sys
+import pygame
 from pygame.math import Vector2
-from pytmx import load_pygame
 
-import pytmx
+import sys
+
+
+
 
 window_width , window_height = 1200, 600
 fps = 60
