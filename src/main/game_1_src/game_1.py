@@ -3,10 +3,11 @@ from .bot import Bot
 
 class Game_1:
    def __init__(self,displaySurface):
-      self.background = pygame.image.load("storage/image/background/back_ground_game2.jpg")
+      self.background = pygame.image.load(game_1_background_image)
       self.background = pygame.transform.scale(self.background, (window_width, window_height))
       self.displaySurface  = displaySurface
-      self.bot1= Bot((100,100))
+      self.bot1= Bot((500,500))
+      self.clock = pygame.time.Clock()
 
    def update(self):
       self.bot1.update()
@@ -22,24 +23,10 @@ class Game_1:
       while run:
          self.update()
          self.draw()
+         self.clock.tick(fps)
 
          for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-               if event.key == pygame.K_RIGHT:
-                  self.bot1.rect.x += 10
-               if event.key == pygame.K_LEFT:
-                  self.bot1.rect.x -= 10
-               if event.key == pygame.K_UP:
-                  self.bot1.rect.y -= 10
-               if event.key == pygame.K_DOWN:
-                  self.bot1.rect.y += 10
-               if event.key == pygame.K_SPACE:
-                  self.bot1.jump()
-
-
-
-
             if event.type == pygame.QUIT:
                run = False
                sys.exit()
-            pygame.display.update()
+         pygame.display.update()
