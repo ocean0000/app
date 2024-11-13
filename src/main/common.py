@@ -1,5 +1,9 @@
 from setting import *
 
+
+
+
+
 class common: 
    def __init__(self):
       pass 
@@ -24,6 +28,9 @@ class common:
       else:
          return sprites
    
+   
+
+
 
 class Timer():
    def __init__(self,duration):
@@ -55,7 +62,7 @@ class Attack():
    def __init__(self, player, target) -> None:
       self.player = player
       self.target = target
-      self.attack_range = attack_range
+      
       self.damage = 10
       self.timer = Timer(attack_time)
       self.space = None
@@ -64,14 +71,20 @@ class Attack():
    def attack(self):
       self.timer.update()
       if self.player.face_right:
-         self.space = pygame.Rect(self.player.rect.x + self.player.rect.width, self.player.rect.y, self.attack_range, self.player.rect.height)
+         self.space = pygame.Rect(self.player.rect["x"] + self.player.rect["width"], self.player.rect["y"]-16, attack_range_width, attack_range_height)
       else:
-         self.space = pygame.Rect(self.player.rect.x - self.attack_range, self.player.rect.y, self.attack_range, self.player.rect.height)
-      for target in self.target:
+         self.space = pygame.Rect(self.player.rect["x"] - attack_range_width, self.player.rect["y"] -16, attack_range_width, attack_range_height)
+      for obj in self.target:
          print(self.timer.active)
-         if self.space.colliderect(target.rect) and not self.timer.active:
-            target.hp -= self.damage
-            print(f"Player {self.player.player} Attack Player {target.player} Health {target.hp}")
+         if self.space.colliderect(obj.rect["x"], obj.rect["y"],obj.rect["width"],obj.rect["height"]) and not self.timer.active:
+            obj.hp -= self.damage
+            if obj.hp <=0:
+               self.target.remove(obj)
+               return
+
+
+
+            print(f"Player {self.player.player} Attack Player {obj.player} Health {obj.hp}")
             self.timer.activate()
            
       

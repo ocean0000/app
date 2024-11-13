@@ -31,9 +31,11 @@ class Character:
       
       self.character_image = character_image+"_"+ str(player) + ".png"
       
+
+      
       self.target = []
       self.player = player
-      self.hp = 100
+      self.hp = hp_character
 
       self.sprite = common()
       self.image ={
@@ -55,7 +57,12 @@ class Character:
 
 
       self.image_index = 0
-      self.rect = self.image["idle"][self.image_index].get_rect(topleft=position)
+      self.rect = {
+         "x": position[0],
+         "y": position[1],
+         "width": 32,
+         "height": 32
+      }
       self.attacking = False
       self.current_state = "idle"
       self.last_state = "idle"
@@ -74,19 +81,24 @@ class Character:
       key= pygame.key.get_pressed()
 
       if key[player_key[self.player]["left"]]:
-         self.rect.x -= 1
+         self.rect["x"] -= move_speed
+         
          self.face_right = False
          self.current_state = "move"
+
       elif key[player_key[self.player]["right"]]:
-         self.rect.x += 1
+         self.rect["x"] += move_speed
+         
          self.face_right = True
          self.current_state = "move"
+
       elif key[player_key[self.player]["up"]]:
-         self.rect.y -= 1
+         self.rect["y"] -= move_speed
          self.current_state = "move"
+
       elif key[player_key[self.player]["down"]]:
-         self.rect.y += 1
-         self.current_state = "idle"
+         self.rect["y"] += move_speed
+         self.current_state = "move"
 
       elif key[player_key[self.player]["attack"]] and not self.timer["attack"].active :
          self.current_state = "attack"
@@ -143,24 +155,27 @@ class Character:
        
    def hp_draw(self,displaySurface):
       hp_width = 120
-      current_hp = self.hp/100 * hp_width
-      pygame.draw.rect(displaySurface, (255,0,0), (self.rect.x , self.rect.y + 16, hp_width, 5))
-      pygame.draw.rect(displaySurface, (0,255,0), (self.rect.x, self.rect.y + 16, current_hp, 5))
+      current_hp = self.hp / hp_character * hp_width
+      pygame.draw.rect(displaySurface, (255,0,0), (self.rect["x"] , self.rect["y"] + 16, hp_width, 5))
+      pygame.draw.rect(displaySurface, (0,255,0), (self.rect["x"], self.rect["y"] + 16, current_hp, 5))
 
    def attack_cooldown(self,displaySurface):
       cooldown_width = 120
       current_cooldown = self.timer["attack"].time_left/attack_time_cooldown * cooldown_width
-      pygame.draw.rect(displaySurface, (0,0,255), (self.rect.x, self.rect.y +10, cooldown_width, 5))
-      pygame.draw.rect(displaySurface, (255,255,0), (self.rect.x, self.rect.y + 10,cooldown_width- current_cooldown, 5))
+      pygame.draw.rect(displaySurface, (255,255,255), (self.rect["x"], self.rect["y"] +10, cooldown_width, 5))
+      pygame.draw.rect(displaySurface, (0,0,255), (self.rect["x"], self.rect["y"] + 10,cooldown_width- current_cooldown, 5))
 
    def draw(self,displaySurface):
+      if self.hp <= 0: 
+         return
       self.hp_draw(displaySurface)
       self.attack_cooldown(displaySurface)
       image = self.image[self.current_state][int(self.image_index)]
       if self.face_right == False:
          image = pygame.transform.flip(image, True, False)
       
-      displaySurface.blit(pygame.transform.scale( image, (128,128)), self.rect)
+      
+      displaySurface.blit(pygame.transform.scale( image, (128,128)), (self.rect["x"], self.rect["y"],self.rect["width"],self.rect["height"]))
 
       
 

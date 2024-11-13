@@ -8,15 +8,20 @@ game_1_background_image = "storage/image/background/game_1_background.png"
 
 
 character_image = "storage/image/character/character"
-attack_range = 120
 
 button_start_image = "storage/image/button/button_start.png"
 
 frame_rate = 0.008
 
-attack_time_cooldown  = 2000
 
+attack_range_width = 100
+attack_range_height = 100
 attack_time = frame_rate * 10
+attack_time_cooldown  = 1500
+
+move_speed = 0.8
+hp_character = 20
+
 
 player_key = {
    1 : {
