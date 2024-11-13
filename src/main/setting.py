@@ -7,8 +7,8 @@ main_app_background_image = "storage/image/background/main_app_background.png"
 game_1_background_image = "storage/image/background/game_1_background.png"
 
 
-character_image = "storage/image/character/character_1.png"
-
+character_image = "storage/image/character/character"
+attack_range = 120
 
 button_start_image = "storage/image/button/button_start.png"
 
