@@ -91,20 +91,20 @@ class Bullet():
       self.target = target
       self.bullet_image =bullet_image +"_" +str(player.player) + ".png"
       
-      self.face_right = copy.copy(self.player.face_right)
+      self.face_right = self.player.face_right
 
       
       if self.face_right:
-         self.x = self.player.rect["x"] + self.player.rect["width"]
-         self.y = self.player.rect["y"] + self.player.rect["height"]//2 +64
+         self.x = self.player.rect["x"] + 100
+         self.y = self.player.rect["y"] + 100//2 
       else:
          self.x = self.player.rect["x"]
-         self.y = self.player.rect["y"] + self.player.rect["height"]//2 +64
+         self.y = self.player.rect["y"] + 100//2 
       
       
       self.width = 32
       self.height = 32
-      
+      self.space = None
 
       
       self.image = pygame.image.load(self.bullet_image)
@@ -115,15 +115,26 @@ class Bullet():
          self.x+= bullet_speed
       else:
          self.x-= bullet_speed
+
+      self.space = pygame.Rect(self.x, self.y, self.width, self.height)
+
       for obj in self.target:
-         if self.x >= obj.rect["x"] and self.x <= obj.rect["x"] + obj.rect["width"] and self.y >= obj.rect["y"] and self.y <= obj.rect["y"] + obj.rect["height"]:
-            self.player.bullet_store.remove(self)
+        print(self.space)
+        print((obj.rect["x"], obj.rect["y"],character_width,character_height))
+        if self.space.colliderect(obj.rect["x"], obj.rect["y"],character_width,character_height):
             obj.hp -= 10
-         if obj.hp <=0:
-            self.target.remove(obj)
+            if obj.hp <=0:
+               self.target.remove(obj)
+               self.player.bullet_store.remove(self)
+               return
+           
+           
+            print(f"Player {self.player.player} Attack Player {obj.player} Health {obj.hp}")
+            self.player.bullet_store.remove(self)
+            return
 
       if self.x >= window_width or self.x <=0 : 
-            self.target.remove(self)
+         self.player.bullet_store.remove(self)
 
    def draw(self,displaySurface):
       displaySurface.blit(self.image, (self.x, self.y))

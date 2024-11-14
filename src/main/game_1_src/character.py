@@ -202,7 +202,7 @@ class Character:
          image = pygame.transform.flip(image, True, False)
       
       
-      displaySurface.blit(pygame.transform.scale( image, (128,128)), (self.rect["x"], self.rect["y"],self.rect["width"],self.rect["height"]))
+      displaySurface.blit( pygame.transform.scale(image,(character_width,character_height)), (self.rect["x"], self.rect["y"],self.rect["width"],self.rect["height"]))
 
       
 

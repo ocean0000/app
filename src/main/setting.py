@@ -1,7 +1,7 @@
 import pygame
 from pygame.math import Vector2
 import sys
-import copy
+
 
 main_app_background_image = "storage/image/background/main_app_background.png"
 
@@ -34,6 +34,8 @@ move_speed = 0.2
 
 
 hp_character = 50
+character_width = 100
+character_height = 100
 
 
 player_key = {
