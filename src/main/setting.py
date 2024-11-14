@@ -31,7 +31,7 @@ attack_damage = 10
 
 
 bullet_speed = 0.5
-bullet_time_cooldown = 750
+bullet_time_cooldown = 1000
 bullet_damage = 5
 
 
