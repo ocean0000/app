@@ -26,17 +26,20 @@ attack_range_width = 100
 attack_range_height = 100
 attack_time = frame_rate * 10
 
-attack_time_cooldown  = 1500
+attack_time_cooldown  = 500
+attack_damage = 10
 
 
 bullet_speed = 0.5
-move_speed = 0.2
+bullet_time_cooldown = 750
+bullet_damage = 5
+
 
 
 hp_character = 50
 character_width = 100
 character_height = 100
-
+move_speed = 0.4
 
 player_key = {
    1 : {

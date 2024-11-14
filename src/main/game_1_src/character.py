@@ -49,7 +49,7 @@ class Character:
       self.timer = {
          "attack": Timer(attack_time_cooldown),
          "idel": Timer(2000),
-         "bullet": Timer(2000)
+         "bullet": Timer(bullet_time_cooldown)
       }
 
 
@@ -127,7 +127,7 @@ class Character:
 
 
    def jump(self):
-      pass
+      pass 
 
 
 
@@ -183,7 +183,7 @@ class Character:
 
    def attack_cooldown(self,displaySurface):
       cooldown_width = 120
-      current_cooldown = self.timer["attack"].time_left/attack_time_cooldown * cooldown_width
+      current_cooldown = self.timer["bullet"].time_left/bullet_time_cooldown * cooldown_width
       pygame.draw.rect(displaySurface, (255,255,255), (self.rect["x"], self.rect["y"] +10, cooldown_width, 5))
       pygame.draw.rect(displaySurface, (0,0,255), (self.rect["x"], self.rect["y"] + 10,cooldown_width- current_cooldown, 5))
 

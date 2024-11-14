@@ -63,7 +63,7 @@ class Attack():
       self.player = player
       self.target = target
       
-      self.damage = 10
+      self.damage = attack_damage
       self.timer = Timer(attack_time)
       self.space = None
 
@@ -71,12 +71,12 @@ class Attack():
    def attack(self):
       self.timer.update()
       if self.player.face_right:
-         self.space = pygame.Rect(self.player.rect["x"] + self.player.rect["width"], self.player.rect["y"]-16, attack_range_width, attack_range_height)
+         self.space = pygame.Rect(self.player.rect["x"] + character_width, self.player.rect["y"], attack_range_width, attack_range_height)
       else:
-         self.space = pygame.Rect(self.player.rect["x"] - attack_range_width, self.player.rect["y"] -16, attack_range_width, attack_range_height)
+         self.space = pygame.Rect(self.player.rect["x"] - attack_range_width, self.player.rect["y"] , attack_range_width, attack_range_height)
       for obj in self.target:
          print(self.timer.active)
-         if self.space.colliderect(obj.rect["x"], obj.rect["y"],obj.rect["width"],obj.rect["height"]) and not self.timer.active:
+         if self.space.colliderect(obj.rect["x"], obj.rect["y"],character_width,character_height) and not self.timer.active:
             obj.hp -= self.damage
             if obj.hp <=0:
                self.target.remove(obj)
@@ -91,15 +91,16 @@ class Bullet():
       self.target = target
       self.bullet_image =bullet_image +"_" +str(player.player) + ".png"
       
-      self.face_right = self.player.face_right
+      self.bullet_damage = bullet_damage
 
+      self.face_right = self.player.face_right
       
       if self.face_right:
-         self.x = self.player.rect["x"] + 100
-         self.y = self.player.rect["y"] + 100//2 
+         self.x = self.player.rect["x"] + character_width
+         self.y = self.player.rect["y"] + character_height//2 
       else:
          self.x = self.player.rect["x"]
-         self.y = self.player.rect["y"] + 100//2 
+         self.y = self.player.rect["y"] + character_height//2 
       
       
       self.width = 32
@@ -119,17 +120,17 @@ class Bullet():
       self.space = pygame.Rect(self.x, self.y, self.width, self.height)
 
       for obj in self.target:
+        print(obj.rect["x"], obj.rect["y"])
         print(self.space)
-        print((obj.rect["x"], obj.rect["y"],character_width,character_height))
         if self.space.colliderect(obj.rect["x"], obj.rect["y"],character_width,character_height):
-            obj.hp -= 10
+            obj.hp -= self.bullet_damage
             if obj.hp <=0:
                self.target.remove(obj)
                self.player.bullet_store.remove(self)
                return
            
            
-            print(f"Player {self.player.player} Attack Player {obj.player} Health {obj.hp}")
+            
             self.player.bullet_store.remove(self)
             return
 
