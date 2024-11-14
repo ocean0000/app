@@ -10,8 +10,8 @@ class Game_1:
       
       
       self.player1 = Character((100, 100),1)
-     
       self.player2 = Character((500, 100),2)
+      
       self.player1.target.append(self.player2)
       self.player2.target.append(self.player1)
 

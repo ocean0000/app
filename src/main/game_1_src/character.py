@@ -1,5 +1,5 @@
 from setting import *
-from common import common,Timer,Attack
+from common import common,Timer,Attack,Bullet
 
 
 attack_sprite =[
@@ -49,10 +49,9 @@ class Character:
       self.timer = {
          "attack": Timer(attack_time_cooldown),
          "idel": Timer(2000),
-         
+         "bullet": Timer(2000)
       }
 
-      self.attack = Attack(self, self.target)
 
 
 
@@ -63,10 +62,17 @@ class Character:
          "width": 32,
          "height": 32
       }
+
+
+      
       self.attacking = False
       self.current_state = "idle"
       self.last_state = "idle"
       self.face_right = True
+
+
+      self.attack = Attack(self, self.target)
+      self.bullet_store = []
 
 
 
@@ -104,12 +110,19 @@ class Character:
          self.current_state = "attack"
          self.attack.attack()
          self.timer["attack"].activate()
+
+      elif key[player_key[self.player]["shoot"]] and not self.timer["bullet"].active:
+         bullet = Bullet(self,self.target) 
+         self.timer["bullet"].activate()
+         self.bullet_store.append(bullet)  
       
       else :
          self.timer["idel"].activate()
       
       self.update_timer()
       self.selectAnimation()
+      self.update_bullet()
+      
 
 
 
@@ -153,6 +166,15 @@ class Character:
                self.image_index = 0
          
        
+
+
+   def update_bullet(self):
+      for  bullet in self.bullet_store :
+         bullet.update()
+
+
+   
+      
    def hp_draw(self,displaySurface):
       hp_width = 120
       current_hp = self.hp / hp_character * hp_width
@@ -170,6 +192,11 @@ class Character:
          return
       self.hp_draw(displaySurface)
       self.attack_cooldown(displaySurface)
+      
+      for bullet in self.bullet_store:
+         bullet.draw(displaySurface)
+
+
       image = self.image[self.current_state][int(self.image_index)]
       if self.face_right == False:
          image = pygame.transform.flip(image, True, False)
