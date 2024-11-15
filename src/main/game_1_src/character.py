@@ -36,6 +36,7 @@ class Character:
       self.target = []
       self.player = player
       self.hp = hp_character
+      self.mana = mana_character
 
       self.sprite = common()
       self.image ={
@@ -48,9 +49,9 @@ class Character:
 
       self.timer = {
          "attack": Timer(attack_time_cooldown),
-         "idel": Timer(2000),
+         "idel": Timer(idle_time),
          "bullet": Timer(bullet_time_cooldown),
-         "jump": Timer(500),
+         "jump": Timer(jump_time),
       }
 
 
@@ -99,14 +100,15 @@ class Character:
          self.face_right = True
          self.current_state = "move"
 
-      elif key[player_key[self.player]["up"]] and not self.timer["jump"].active and self.rect["y"] == 400:
-         self.rect["y"] -= move_speed
+      elif key[player_key[self.player]["up"]] and not self.timer["jump"].active and self.rect["y"] >=  400:
+         
          
          self.timer["jump"].activate()
          self.current_state = "move"
 
       elif key[player_key[self.player]["down"]]:
          self.hp += 0.005
+         self.mana += 0.1
          if self.hp >= hp_character:
             self.hp = hp_character
          self.current_state = "move"
@@ -116,23 +118,33 @@ class Character:
          self.attack.attack()
          self.timer["attack"].activate()
 
-      elif key[player_key[self.player]["shoot"]] and not self.timer["bullet"].active:
+      elif key[player_key[self.player]["shoot"]] and not self.timer["bullet"].active and self.mana >= 20:
          bullet = Bullet(self,self.target) 
          self.timer["bullet"].activate()
+         self.mana -= 20
          self.bullet_store.append(bullet)  
       
-      elif key[player_key[self.player]["flash"]] :
+      elif key[player_key[self.player]["flash"]]  and self.mana >= 10:
          if self.face_right:
             self.rect["x"] += flash_speed
          else:
             self.rect["x"] -= flash_speed
+         self.mana -= 0.1
          self.current_state = "move"
       
       
-      else :
+      elif not self.timer["idel"].active :
+         self.current_state = "idle"
          self.timer["idel"].activate()
-         
-      
+
+
+      self.mana += 0.01 
+      if self.mana <= 0:
+         self.mana = 0
+      elif self.mana >= mana_character:
+         self.mana = mana_character
+
+
       self.update_timer()
       self.selectAnimation()
       self.update_bullet()
@@ -142,14 +154,16 @@ class Character:
 
 
    def jump(self):
-      if self.timer["jump"].active:
-         self.rect["y"] -= 0.5
       
-      if self.timer["jump"].active == False:
-         self.rect["y"] += 0.6
-         if self.rect ["y"] >= 400:
-            self.rect["y"] = 400
-           
+      if self.timer["jump"].active : 
+         self.rect["y"] -= gravity
+      else :
+         self.rect["y"] += gravity
+        
+
+      if self.rect["y"] >= 400:
+         self.rect["y"] = 400
+         
 
           
 
@@ -205,17 +219,18 @@ class Character:
       pygame.draw.rect(displaySurface, (255,0,0), (self.rect["x"] , self.rect["y"] + 16, hp_width, 5))
       pygame.draw.rect(displaySurface, (0,255,0), (self.rect["x"], self.rect["y"] + 16, current_hp, 5))
 
-   def attack_cooldown(self,displaySurface):
+   def mana_draw(self,displaySurface):
+      current_mana = self.mana / mana_character * mana_width
+      pygame.draw.rect(displaySurface, (255,255,255), (self.rect["x"], self.rect["y"] + 10, mana_width, 5))
+      pygame.draw.rect(displaySurface, (0,0,255), (self.rect["x"], self.rect["y"] + 10, current_mana,5))
       
-      current_cooldown = self.timer["bullet"].time_left/bullet_time_cooldown * cooldown_width
-      pygame.draw.rect(displaySurface, (255,255,255), (self.rect["x"], self.rect["y"] +10, cooldown_width, 5))
-      pygame.draw.rect(displaySurface, (0,0,255), (self.rect["x"], self.rect["y"] + 10,cooldown_width- current_cooldown, 5))
+      
 
    def draw(self,displaySurface):
       if self.hp <= 0: 
          return
       self.hp_draw(displaySurface)
-      self.attack_cooldown(displaySurface)
+      self.mana_draw(displaySurface)
       
       for bullet in self.bullet_store:
          bullet.draw(displaySurface)
@@ -229,7 +244,7 @@ class Character:
          self.rect["x"] = 0
       if self.rect["x"] > window_width - character_width:
          self.rect["x"] = window_width - character_width
-      print(image.get_width(),image.get_height())
+      
       displaySurface.blit( pygame.transform.scale(image,(character_width,character_height)), (self.rect["x"], self.rect["y"],self.rect["width"],self.rect["height"]))
 
       

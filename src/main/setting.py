@@ -31,16 +31,25 @@ attack_damage = 15
 
 
 bullet_speed = 0.8
-bullet_time_cooldown = 1500
+bullet_time_cooldown = 500
 bullet_damage = 8
 
+gravity = 0.6
+jump_time = 200 
 
+hp_character = 100
+hp_width = 100
+mana_character = 100
+mana_width = 100
 
-hp_character = 50
 character_width = 100
 character_height = 100
 move_speed = 0.4
-flash_speed = 2
+flash_speed = 1
+idle_time =5000
+
+
+
 
 player_key = {
    1 : {
@@ -65,5 +74,5 @@ player_key = {
 
 
 window_width , window_height = 1200, 600
-hp_width, cooldown_width = 100, 100
+cooldown_width = 100
 fps = 250
