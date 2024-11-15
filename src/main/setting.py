@@ -22,17 +22,17 @@ button_start_image = "storage/image/button/button_start.png"
 frame_rate = 0.008
 
 
-attack_range_width = 100
-attack_range_height = 100
-attack_time = frame_rate * 10
+attack_range_width = 10
+attack_range_height = 10
+attack_time = frame_rate * 5
 
 attack_time_cooldown  = 500
 attack_damage = 15
 
 
 bullet_speed = 0.8
-bullet_time_cooldown = 2000
-bullet_damage = 4
+bullet_time_cooldown = 1500
+bullet_damage = 8
 
 
 
@@ -40,7 +40,7 @@ hp_character = 50
 character_width = 100
 character_height = 100
 move_speed = 0.4
-flash_speed = 0.8
+flash_speed = 2
 
 player_key = {
    1 : {

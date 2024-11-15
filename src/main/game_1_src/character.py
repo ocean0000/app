@@ -120,6 +120,7 @@ class Character:
          bullet = Bullet(self,self.target) 
          self.timer["bullet"].activate()
          self.bullet_store.append(bullet)  
+      
       elif key[player_key[self.player]["flash"]] :
          if self.face_right:
             self.rect["x"] += flash_speed
@@ -224,7 +225,11 @@ class Character:
       if self.face_right == False:
          image = pygame.transform.flip(image, True, False)
       
-      
+      if self.rect["x"] < 0:
+         self.rect["x"] = 0
+      if self.rect["x"] > window_width - character_width:
+         self.rect["x"] = window_width - character_width
+      print(image.get_width(),image.get_height())
       displaySurface.blit( pygame.transform.scale(image,(character_width,character_height)), (self.rect["x"], self.rect["y"],self.rect["width"],self.rect["height"]))
 
       
