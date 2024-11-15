@@ -49,7 +49,8 @@ class Character:
       self.timer = {
          "attack": Timer(attack_time_cooldown),
          "idel": Timer(2000),
-         "bullet": Timer(bullet_time_cooldown)
+         "bullet": Timer(bullet_time_cooldown),
+         "jump": Timer(500),
       }
 
 
@@ -69,7 +70,7 @@ class Character:
       self.current_state = "idle"
       self.last_state = "idle"
       self.face_right = True
-
+     
 
       self.attack = Attack(self, self.target)
       self.bullet_store = []
@@ -98,12 +99,16 @@ class Character:
          self.face_right = True
          self.current_state = "move"
 
-      elif key[player_key[self.player]["up"]]:
+      elif key[player_key[self.player]["up"]] and not self.timer["jump"].active and self.rect["y"] == 400:
          self.rect["y"] -= move_speed
+         
+         self.timer["jump"].activate()
          self.current_state = "move"
 
       elif key[player_key[self.player]["down"]]:
-         self.rect["y"] += move_speed
+         self.hp += 0.005
+         if self.hp >= hp_character:
+            self.hp = hp_character
          self.current_state = "move"
 
       elif key[player_key[self.player]["attack"]] and not self.timer["attack"].active :
@@ -115,19 +120,37 @@ class Character:
          bullet = Bullet(self,self.target) 
          self.timer["bullet"].activate()
          self.bullet_store.append(bullet)  
+      elif key[player_key[self.player]["flash"]] :
+         if self.face_right:
+            self.rect["x"] += flash_speed
+         else:
+            self.rect["x"] -= flash_speed
+         self.current_state = "move"
+      
       
       else :
          self.timer["idel"].activate()
+         
       
       self.update_timer()
       self.selectAnimation()
       self.update_bullet()
+      self.jump()
       
 
 
 
    def jump(self):
-      pass 
+      if self.timer["jump"].active:
+         self.rect["y"] -= 0.5
+      
+      if self.timer["jump"].active == False:
+         self.rect["y"] += 0.6
+         if self.rect ["y"] >= 400:
+            self.rect["y"] = 400
+           
+
+          
 
 
 
@@ -176,13 +199,13 @@ class Character:
    
       
    def hp_draw(self,displaySurface):
-      hp_width = 120
+      
       current_hp = self.hp / hp_character * hp_width
       pygame.draw.rect(displaySurface, (255,0,0), (self.rect["x"] , self.rect["y"] + 16, hp_width, 5))
       pygame.draw.rect(displaySurface, (0,255,0), (self.rect["x"], self.rect["y"] + 16, current_hp, 5))
 
    def attack_cooldown(self,displaySurface):
-      cooldown_width = 120
+      
       current_cooldown = self.timer["bullet"].time_left/bullet_time_cooldown * cooldown_width
       pygame.draw.rect(displaySurface, (255,255,255), (self.rect["x"], self.rect["y"] +10, cooldown_width, 5))
       pygame.draw.rect(displaySurface, (0,0,255), (self.rect["x"], self.rect["y"] + 10,cooldown_width- current_cooldown, 5))

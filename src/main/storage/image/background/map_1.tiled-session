@@ -1,0 +1,25 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "map_tilset.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Ocean/Desktop/software/app/src/main/storage/image/background",
+    "map.height": 600,
+    "map.width": 1200,
+    "openFiles": [
+    ],
+    "project": "map_1.tiled-project",
+    "recentFiles": [
+        "map_tilset.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

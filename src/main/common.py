@@ -141,3 +141,7 @@ class Bullet():
       displaySurface.blit(self.image, (self.x, self.y))
       
 
+class map(): 
+      def __init__(self) -> None:
+         pass 
+
