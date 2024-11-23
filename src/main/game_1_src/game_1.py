@@ -6,6 +6,8 @@ class Game_1:
       self.background = pygame.image.load(game_1_background_image)
       self.background = pygame.transform.scale(self.background, (window_width, window_height))
       self.displaySurface  = displaySurface
+      self.font = pygame.font.Font(None, 36)
+      self.game_mode =None
 
       
       
@@ -27,9 +29,34 @@ class Game_1:
    def run(self):
       run = True
       while run:
-         self.update()
-         self.draw()
-        
+         if self.game_mode == None:
+               self.displaySurface.fill((255, 255, 255))
+               single_player_rect = pygame.Rect(100, 400, 200, 50)
+               multiplayer_rect = pygame.Rect(500, 400, 200, 50)
+               pygame.draw.rect(self.displaySurface, (0, 0, 0), single_player_rect)
+               pygame.draw.rect(self.displaySurface, (0, 0, 0), multiplayer_rect)
+
+               # Render text
+               single_player_text = self.font.render("Single Player", True, (255, 255, 255))
+               multiplayer_text = self.font.render("Multiplayer", True, (255, 255, 255))
+
+               # Blit text
+               self.displaySurface.blit(single_player_text, (single_player_rect.x + 20, single_player_rect.y + 10))
+               self.displaySurface.blit(multiplayer_text, (multiplayer_rect.x + 20, multiplayer_rect.y + 10))
+
+
+               for event in pygame.event.get():
+                  if event.type == pygame.MOUSEBUTTONDOWN:
+                     if single_player_rect.collidepoint(event.pos):
+                        self.game_mode = "single"
+                     elif multiplayer_rect.collidepoint(event.pos):
+                        self.game_mode = "multi"
+            
+         else:
+            self.update()
+            self.draw()
+            
+         
 
          for event in pygame.event.get():
             if event.type == pygame.QUIT:

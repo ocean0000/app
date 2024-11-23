@@ -108,7 +108,7 @@ class Character:
 
       elif key[player_key[self.player]["down"]]:
          self.hp += 0.005
-         self.mana += 0.1
+         self.mana += 0.005
          if self.hp >= hp_character:
             self.hp = hp_character
          self.current_state = "move"
@@ -121,7 +121,7 @@ class Character:
       elif key[player_key[self.player]["shoot"]] and not self.timer["bullet"].active and self.mana >= 20:
          bullet = Bullet(self,self.target) 
          self.timer["bullet"].activate()
-         self.mana -= 20
+         self.mana -= mana_bullet
          self.bullet_store.append(bullet)  
       
       elif key[player_key[self.player]["flash"]]  and self.mana >= 10:
@@ -154,15 +154,13 @@ class Character:
 
 
    def jump(self):
-      
-      if self.timer["jump"].active : 
-         self.rect["y"] -= gravity
-      else :
+      if self.timer["jump"].active:
+         self.rect["y"] -= jump_speed
+         self.current_state = "move"
+      if self.timer["jump"].active == False and self.rect["y"] < 400:
          self.rect["y"] += gravity
-        
-
-      if self.rect["y"] >= 400:
-         self.rect["y"] = 400
+         self.current_state = "move"
+      
          
 
           

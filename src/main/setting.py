@@ -33,9 +33,11 @@ attack_damage = 15
 bullet_speed = 0.8
 bullet_time_cooldown = 500
 bullet_damage = 8
+mana_bullet = 20 
 
-gravity = 0.6
-jump_time = 200 
+gravity = 1
+jump_time = 1000 
+jump_speed = 0.1
 
 hp_character = 100
 hp_width = 100
@@ -75,4 +77,4 @@ player_key = {
 
 window_width , window_height = 1200, 600
 cooldown_width = 100
-fps = 250
+fps = 600

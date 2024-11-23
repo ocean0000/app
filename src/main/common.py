@@ -75,14 +75,14 @@ class Attack():
       else:
          self.space = pygame.Rect(self.player.rect["x"] - attack_range_width, self.player.rect["y"] , attack_range_width, attack_range_height)
       for obj in self.target:
-         print(self.timer.active)
+         # print(self.timer.active)
          if self.space.colliderect(obj.rect["x"], obj.rect["y"],character_width,character_height) and not self.timer.active:
             obj.hp -= self.damage
             if obj.hp <=0:
                self.target.remove(obj)
                return
 
-            print(f"Player {self.player.player} Attack Player {obj.player} Health {obj.hp}")
+            # print(f"Player {self.player.player} Attack Player {obj.player} Health {obj.hp}")
             self.timer.activate()
 
 class Bullet():
@@ -120,8 +120,8 @@ class Bullet():
       self.space = pygame.Rect(self.x, self.y, self.width, self.height)
 
       for obj in self.target:
-        print(obj.rect["x"], obj.rect["y"])
-        print(self.space)
+      #   print(obj.rect["x"], obj.rect["y"])
+      #   print(self.space)
         if self.space.colliderect(obj.rect["x"], obj.rect["y"],character_width,character_height):
             obj.hp -= self.bullet_damage
             if obj.hp <=0:
